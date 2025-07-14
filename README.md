@@ -1,7 +1,7 @@
 # @exalif/ngx-breadcrumbs
 An Angular (4+) module generating breadcrumbs based on the routing state.
 
-This package is a modified fork of original [ngx-breadcrumbs](https://github.com/McNull/ngx-breadcrumbs) package by McNull
+This package is a modified fork of [exalif's ngx-breadcrumbs](https://github.com/exalif/angular-libs/tree/master/libs/ngx-breadcrumbs) which was a fork of the original [ngx-breadcrumbs](https://github.com/McNull/ngx-breadcrumbs) package by McNull
 
 ## Requirements
 

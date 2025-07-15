@@ -1,7 +1,5 @@
-import { Injectable } from '@angular/core';
-
+import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
-
 import { Breadcrumb } from '../models/breadcrumb';
 
 export type PostProcessFunction =
@@ -9,21 +7,9 @@ export type PostProcessFunction =
 
 export type DistinctKey = keyof Breadcrumb;
 
-@Injectable()
-export class BreadcrumbsConfig {
-  public postProcess: PostProcessFunction | null = null;
-  public applyDistinctOn: DistinctKey | null = 'text';
-
-  constructor(options: BreadcrumbsConfig = {
-    postProcess: null,
-    applyDistinctOn: 'text',
-  }) {
-    if (!options) {
-      return;
-    }
-
-    Object.keys(options).forEach((optionKey) => {
-      this[optionKey] = options[optionKey];
-    });
-  }
+export interface BreadcrumbsConfig {
+  postProcess: PostProcessFunction | null;
+  applyDistinctOn: DistinctKey | null;
 }
+  
+export const BREADCRUMBS_CONFIG = new InjectionToken<BreadcrumbsConfig>('BREADCRUMBS_CONFIG');

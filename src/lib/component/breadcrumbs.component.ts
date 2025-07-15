@@ -1,5 +1,7 @@
 
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
@@ -8,20 +10,18 @@ import { Breadcrumb } from '../models/breadcrumb';
 
 @Component({
   selector: 'lib-breadcrumbs',
-  template: `
-    <ol *ngIf="crumbs$ | async as crumbs" class="breadcrumbs__container">
-      <li *ngFor="let crumb of crumbs; let last = last"
-        [ngClass]="{ 'breadcrumbs__item--active': last }"
-        class="breadcrumbs__item"
-      >
-        <a *ngIf="!last" [routerLink]="crumb.path">{{ crumb.text }}</a>
-        <span *ngIf="last">{{ crumb.text }}</span>
-      </li>
-    </ol>
-  `
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  templateUrl: './breadcrumbs.component.html',
+  styleUrls: ['./breadcrumbs.component.scss']
 })
+
 export class BreadcrumbsComponent {
-  public crumbs$: Observable<Breadcrumb[]> = this.breadcrumbsService.getCrumbs();
+  public crumbs$!: Observable<Breadcrumb[]>;
 
   constructor(public breadcrumbsService: BreadcrumbsService) { }
+
+  ngOnInit(): void {
+    this.crumbs$ = this.breadcrumbsService.getCrumbs();
+  }
 }

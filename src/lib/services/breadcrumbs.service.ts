@@ -1,11 +1,11 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable, Injector, Inject, Optional  } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 
 import { Observable, of, BehaviorSubject, concat } from 'rxjs';
 
 import { filter, flatMap, distinct, toArray, first, tap } from 'rxjs/operators';
 
-import { BreadcrumbsConfig } from './breadcrumbs.config';
+import { BREADCRUMBS_CONFIG, BreadcrumbsConfig } from './breadcrumbs.config';
 import { BreadcrumbsResolver } from './breadcrumbs.resolver';
 import { Breadcrumb } from '../models/breadcrumb';
 import { BreadcrumbsUtils } from '../utils/breadcrumbs.utils';
@@ -19,9 +19,11 @@ export class BreadcrumbsService {
   constructor(
     public route: ActivatedRoute,
     private router: Router,
-    private config: BreadcrumbsConfig,
+    @Optional() @Inject(BREADCRUMBS_CONFIG) private config: BreadcrumbsConfig,
     private injector: Injector
   ) {
+
+
     this.router.events.pipe(
       filter((x) => x instanceof NavigationEnd || x['routerEvent'] instanceof NavigationEnd),
     ).subscribe(() => {
